@@ -1,5 +1,8 @@
 
+using E_Commerce.Domian.Interfaces;
 using E_Commerce.Persistence.Data.DbContexts;
+using E_Commerce.Persistence.Data.SeedData;
+using E_Commerce.Presentation.Api.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.Presentation.Api
@@ -24,9 +27,23 @@ namespace E_Commerce.Presentation.Api
             });
             #endregion
 
+            #region IoC
+
+            builder.Services.AddScoped<IDataInitializer, DataInitializer>();
+
+            #endregion
+
 
 
             var app = builder.Build();
+
+            #region Data-Seed ApplyMigrations
+
+            app.MigrateDatabase();
+            app.SeedData();
+
+            #endregion
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

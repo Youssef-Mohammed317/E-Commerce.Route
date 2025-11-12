@@ -1,0 +1,119 @@
+[
+  {
+    "Name": "Classic White T-Shirt",
+    "Description": "A soft cotton white t-shirt that goes with everything. Perfect for casual everyday wear.",
+    "Price": 120,
+    "PictureUrl": "images/products/ClassicWhiteTShirt.jpeg",
+    "PictureName": "ClassicWhiteTShirt.jpeg",
+    "ProductTypeId": "8FF2D650-3B47-4D32-A1A8-08DE21E7ED17",
+    "ProductBrandId": "C3D24E78-B41E-4215-84D6-08DE21E7EB6A"
+  },
+  {
+    "Name": "Slim Fit Jeans",
+    "Description": "These mid-rise slim fit jeans offer a comfortable stretch and a stylish look for all occasions.",
+    "Price": 350,
+    "PictureUrl": "images/products/SlimFitJeans.jpg",
+    "PictureName": "SlimFitJeans.jpg",
+    "ProductTypeId": "E9A59186-9CDB-4202-A1A9-08DE21E7ED17",
+    "ProductBrandId": "7BFAC9E6-FB14-422C-84D7-08DE21E7EB6A"
+  },
+  {
+    "Name": "Denim Jacket",
+    "Description": "A timeless denim jacket with a slightly faded wash. Layer it over any outfit for an instant upgrade.",
+    "Price": 500,
+    "PictureUrl": "images/products/DenimJacket.jpg",
+    "PictureName": "DenimJacket.jpg",
+    "ProductTypeId": "0A36E8FB-94BE-455C-A1AA-08DE21E7ED17",
+    "ProductBrandId": "7BFAC9E6-FB14-422C-84D7-08DE21E7EB6A"
+  },
+  {
+    "Name": "Cotton Hoodie",
+    "Description": "Soft and cozy cotton hoodie with adjustable drawstring and kangaroo pocket. Ideal for cool evenings.",
+    "Price": 400,
+    "PictureUrl": "images/products/CottonHoodie.jpg",
+    "PictureName": "CottonHoodie.jpg",
+    "ProductTypeId": "8FF2D650-3B47-4D32-A1A8-08DE21E7ED17",
+    "ProductBrandId": "91EBF7CE-B41B-400F-84D8-08DE21E7EB6A"
+  },
+  {
+    "Name": "Formal Blazer",
+    "Description": "Tailored-fit blazer that adds a touch of sophistication to any outfit. Perfect for business or evening wear.",
+    "Price": 850,
+    "PictureUrl": "images/products/FormalBlazer.jpg",
+    "PictureName": "FormalBlazer.jpg",
+    "ProductTypeId": "0A36E8FB-94BE-455C-A1AA-08DE21E7ED17",
+    "ProductBrandId": "0E5AA79F-5692-4850-84D9-08DE21E7EB6A"
+  },
+  {
+    "Name": "Summer Floral Dress",
+    "Description": "Flowy floral summer dress with adjustable straps and a flattering waistline. Breathable and comfortable.",
+    "Price": 450,
+    "PictureUrl": "images/products/SummerFloralDress.jpg",
+    "PictureName": "SummerFloralDress.jpg",
+    "ProductTypeId": "0A36E8FB-94BE-455C-A1AA-08DE21E7ED17",
+    "ProductBrandId": "B63DCDB3-79FA-41AE-84DA-08DE21E7EB6A"
+  },
+  {
+    "Name": "Men's Leather Jacket",
+    "Description": "Classic brown leather jacket with zip closure and side pockets. Durable and stylish for all seasons.",
+    "Price": 1200,
+    "PictureUrl": "images/products/MensLeatherJacket.jpg",
+    "PictureName": "MensLeatherJacket.jpg",
+    "ProductTypeId": "0A36E8FB-94BE-455C-A1AA-08DE21E7ED17",
+    "ProductBrandId": "54BE5D55-6D05-45B3-84DB-08DE21E7EB6A"
+  },
+  {
+    "Name": "Casual Sneakers",
+    "Description": "Lightweight sneakers designed for everyday wear. Breathable material with cushioned soles.",
+    "Price": 600,
+    "PictureUrl": "images/products/CasualSneakers.jpg",
+    "PictureName": "CasualSneakers.jpg",
+    "ProductTypeId": "657C362E-2F31-4243-A1AB-08DE21E7ED17",
+    "ProductBrandId": "91EBF7CE-B41B-400F-84D8-08DE21E7EB6A"
+  },
+  {
+    "Name": "Classic Black Dress Pants",
+    "Description": "Slim-cut black dress pants that offer a polished look for formal or office wear.",
+    "Price": 400,
+    "PictureUrl": "images/products/ClassicBlackDressPants.jpg",
+    "PictureName": "ClassicBlackDressPants.jpg",
+    "ProductTypeId": "E9A59186-9CDB-4202-A1A9-08DE21E7ED17",
+    "ProductBrandId": "C3D24E78-B41E-4215-84D6-08DE21E7EB6A"
+  },
+  {
+    "Name": "Knitted Sweater",
+    "Description": "Warm knitted sweater with a crew neckline and ribbed cuffs. Ideal for layering in winter.",
+    "Price": 380,
+    "PictureUrl": "images/products/KnittedSweater.jpg",
+    "PictureName": "KnittedSweater.jpg",
+    "ProductTypeId": "8FF2D650-3B47-4D32-A1A8-08DE21E7ED17",
+    "ProductBrandId": "7BFAC9E6-FB14-422C-84D7-08DE21E7EB6A"
+  },
+  {
+    "Name": "Men's Polo Shirt",
+    "Description": "Classic short-sleeve polo shirt with a soft feel and neat collar. Perfect for casual Fridays.",
+    "Price": 200,
+    "PictureUrl": "images/products/MensPoloShirt.jpg",
+    "PictureName": "MensPoloShirt.jpg",
+    "ProductTypeId": "8FF2D650-3B47-4D32-A1A8-08DE21E7ED17",
+    "ProductBrandId": "0E5AA79F-5692-4850-84D9-08DE21E7EB6A"
+  },
+  {
+    "Name": "Women's Trench Coat",
+    "Description": "Chic beige trench coat with adjustable belt and water-resistant fabric. A wardrobe essential.",
+    "Price": 950,
+    "PictureUrl": "images/products/WomensTrenchCoat.jpeg",
+    "PictureName": "WomensTrenchCoat.jpeg",
+    "ProductTypeId": "0A36E8FB-94BE-455C-A1AA-08DE21E7ED17",
+    "ProductBrandId": "B63DCDB3-79FA-41AE-84DA-08DE21E7EB6A"
+  },
+  {
+    "Name": "Wool Scarf",
+    "Description": "Soft wool scarf that keeps you warm while adding a stylish touch to your winter outfits.",
+    "Price": 150,
+    "PictureUrl": "images/products/WoolScarf.jpg",
+    "PictureName": "WoolScarf.jpg",
+    "ProductTypeId": "657C362E-2F31-4243-A1AB-08DE21E7ED17",
+    "ProductBrandId": "7BFAC9E6-FB14-422C-84D7-08DE21E7EB6A"
+  }
+]
