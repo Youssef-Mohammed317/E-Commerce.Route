@@ -2,6 +2,7 @@
 using E_Commerce.Domian.Entites.BasketModule;
 using E_Commerce.Domian.Interfaces;
 using E_Commerce.Service.Abstraction.Interfaces;
+using E_Commerce.Service.Implementation.Exceptions;
 using E_Commerce.Shared.DTOs.BasketDTOs;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,8 @@ namespace E_Commerce.Service.Implementation.Services
         public async Task<BasketDTO?> GetBasketAsync(Guid basketId)
         {
             var basketEntity = await _basketRepository.GetBasketAsync(basketId);
-            return _mapper.Map<BasketDTO>(basketEntity);
+
+            return _mapper.Map<BasketDTO>(basketEntity ?? throw new BasketNotFoundException(basketId));
         }
     }
 }

@@ -1,4 +1,6 @@
-
+﻿
+using E_Commerce.Api.Factories;
+using E_Commerce.Api.Middleware;
 using E_Commerce.Domian.Interfaces;
 using E_Commerce.Persistence.Data.DbContexts;
 using E_Commerce.Persistence.Data.Migrations;
@@ -8,6 +10,7 @@ using E_Commerce.Presentation.Api.Extensions;
 using E_Commerce.Service.Abstraction.Interfaces;
 using E_Commerce.Service.Implementation.MappingProfiles.ProductModule;
 using E_Commerce.Service.Implementation.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
@@ -43,7 +46,9 @@ namespace E_Commerce.Presentation.Api
                 var options = ConfigurationOptions.Parse(
                     builder.Configuration.GetConnectionString("RedisConnection")!
                 );
-                options.Ssl = true;
+
+                options.Ssl = false; // ❗ مهم جدًا
+                options.AbortOnConnectFail = false;
 
                 return ConnectionMultiplexer.Connect(options);
             });
@@ -55,11 +60,18 @@ namespace E_Commerce.Presentation.Api
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IBasketService, BasketService>();
             builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+            builder.Services.AddScoped<ICacheRepository, CacheRepository>();
+            builder.Services.AddScoped<ICacheService, CacheService>();
             builder.Services.AddAutoMapper(config =>
             {
                 config.AddMaps(typeof(ProductModuleProfile).Assembly);
             });
             builder.Services.AddTransient<ProductPictureUrlResolver>();
+            builder.Services.Configure<ApiBehaviorOptions>(options =>
+            {
+                //options.SuppressModelStateInvalidFilter = true;
+                options.InvalidModelStateResponseFactory = ApiResponseFactory.GenerateApiValidationResponse;
+            });
 
             #endregion
 
@@ -83,6 +95,8 @@ namespace E_Commerce.Presentation.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseHttpsRedirection();
 

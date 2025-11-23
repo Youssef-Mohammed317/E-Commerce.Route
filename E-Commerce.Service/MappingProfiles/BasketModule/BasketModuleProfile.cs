@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Service.Implementation.MappingProfiles.BasketModule
 {
-    public class BasketModuleProfile :Profile
+    public class BasketModuleProfile : Profile
     {
         public BasketModuleProfile()
         {
-            CreateMap<CustomerBasket,BasketDTO>()
+            CreateMap<CustomerBasket, BasketDTO>()
+                .ReverseMap();
+
+            CreateMap<BasketItem, BasketItemDTO>()
                 .ReverseMap();
         }
     }

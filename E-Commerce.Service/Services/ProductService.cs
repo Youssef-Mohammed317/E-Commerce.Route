@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using E_Commerce.Domian.Entites.ProductModule;
 using E_Commerce.Domian.Interfaces;
 using E_Commerce.Service.Abstraction.Interfaces;
+using E_Commerce.Service.Implementation.Exceptions;
 using E_Commerce.Service.Implementation.Specifications;
 using E_Commerce.Shared.DTOs;
 using E_Commerce.Shared.DTOs.ProductDTOs;
@@ -59,9 +60,13 @@ namespace E_Commerce.Service.Implementation.Services
         public async Task<ProductDTO> GetProductByIdAsync(Guid id)
         {
             var spec = new ProductWithBrandAndTypeSpecification(id);
-            var product = await _unitOfWork.GetRepository<Product>().GetByIdAsync(spec);
+            var product = await _unitOfWork.GetRepository<Product>().GetByIdAsync(spec) ;
 
-            return _mapper.Map<ProductDTO>(product);
+
+
+
+
+            return _mapper.Map<ProductDTO>(product ?? throw new ProductNotFoundException(id));
         }
 
     }
