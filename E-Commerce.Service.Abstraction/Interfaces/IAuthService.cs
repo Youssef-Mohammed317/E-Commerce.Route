@@ -1,4 +1,5 @@
-﻿using E_Commerce.Shared.DTOs.AuthDTOs;
+﻿using E_Commerce.Shared.Common;
+using E_Commerce.Shared.DTOs.AuthDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace E_Commerce.Service.Abstraction.Interfaces
 {
     public interface IAuthService
     {
-        Task<UserDTO> LoginAsync(LoginDTO loginDTO);
-        Task<UserDTO> RegisterAsync(RegisterDTO registerDTO);
+        Task<Result<UserDTO>> LoginAsync(LoginDTO loginDTO);
+        Task<Result<UserDTO>> RegisterAsync(RegisterDTO registerDTO);
     }
 }

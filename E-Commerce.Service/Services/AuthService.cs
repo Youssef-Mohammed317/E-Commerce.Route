@@ -1,5 +1,6 @@
 ﻿using E_Commerce.Domian.Entites.IdentityModule;
 using E_Commerce.Service.Abstraction.Interfaces;
+using E_Commerce.Shared.Common;
 using E_Commerce.Shared.DTOs.AuthDTOs;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -18,17 +19,17 @@ namespace E_Commerce.Service.Implementation.Services
         {
             _userManager = userManager;
         }
-        public async Task<UserDTO> LoginAsync(LoginDTO loginDTO)
+        public async Task<Result<UserDTO>> LoginAsync(LoginDTO loginDTO)
         {
             var user = await _userManager.FindByEmailAsync(loginDTO.Email);
             if (user == null)
             {
-                return null!; // "Invaild caredentials" 
+                return Result<UserDTO>.Fail(Error.InvalidCrendentials("Invaild caredentials"));
             }
             var isPasswordValid = await _userManager.CheckPasswordAsync(user, loginDTO.Password);
             if (!isPasswordValid)
             {
-                return null!; // "Invaild caredentials"
+                return Result<UserDTO>.Fail(Error.InvalidCrendentials("Invaild caredentials"));
             }
             var userDTO = new UserDTO
             {
@@ -37,11 +38,11 @@ namespace E_Commerce.Service.Implementation.Services
                 Token = await GenterateTokenAsync(user)
             };
 
-            return userDTO;
+            return Result<UserDTO>.Ok(userDTO);
         }
 
 
-        public async Task<UserDTO> RegisterAsync(RegisterDTO registerDTO)
+        public async Task<Result<UserDTO>> RegisterAsync(RegisterDTO registerDTO)
         {
             var user = new ApplicationUser
             {
@@ -59,9 +60,11 @@ namespace E_Commerce.Service.Implementation.Services
                     DisplayName = user.DisplayName,
                     Token = await GenterateTokenAsync(user)
                 };
-                return userDTO;
+                return Result<UserDTO>.Ok(userDTO);
             }
-            return null!; // result.Errors.Select(e => new { e.Code, e.Description }); // "Registeration failed"
+            var errors = result.Errors.Select(e => Error.Validation(e.Code, e.Description)).ToList();
+            return Result<UserDTO>.Fail(errors);
+
         }
         private async Task<string> GenterateTokenAsync(ApplicationUser user)
         {

@@ -17,33 +17,68 @@ namespace E_Commerce.Presentation.Attributes
         {
             _expirationMinutes = expirationMinutes;
         }
-        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-        {
-            /* redis key => request | value => data | expiration time
-            if data is in cache
-                return cached data and skip action execution
-            else
-                proceed to action execution
-                store result in cache if success response
-            */
+        //public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        //{
+        //    /* redis key => request | value => data | expiration time
+        //    if data is in cache
+        //        return cached data and skip action execution
+        //    else
+        //        proceed to action execution
+        //        store result in cache if success response
+        //    */
 
-            var cacheService = context.HttpContext.RequestServices.GetRequiredService<ICacheService>();
+        //    var cacheService = context.HttpContext.RequestServices.GetRequiredService<ICacheService>();
+
+        //    var cacheKey = GenerateCacheKey(context);
+
+        //    var cachedDataTask = await cacheService.GetAsync(cacheKey);
+
+        //    if (cachedDataTask != null)
+        //    {
+        //        context.Result = new OkObjectResult(cachedDataTask);
+        //        return;
+        //    }
+        //    var executedContext = await next();
+        //    if (executedContext.Result is OkObjectResult okResult)
+        //    {
+        //        await cacheService.SetAsync(cacheKey, okResult.Value!, TimeSpan.FromMinutes(_expirationMinutes));
+        //    }
+        //}
+
+        public override async Task OnActionExecutionAsync(
+            ActionExecutingContext context,
+            ActionExecutionDelegate next)
+        {
+            var cacheService = context.HttpContext.RequestServices
+                .GetRequiredService<ICacheService>();
 
             var cacheKey = GenerateCacheKey(context);
 
-            var cachedDataTask = await cacheService.GetAsync(cacheKey);
+            var cacheResult = await cacheService.GetAsync(cacheKey);
 
-            if (cachedDataTask != null)
+            // cache hit
+            if (cacheResult.IsSuccess && cacheResult.HasValue)
             {
-                context.Result = new OkObjectResult(cachedDataTask);
+                // cached JSON -> object
+                var cachedJson = cacheResult.Value;
+                var cachedObject = System.Text.Json.JsonSerializer.Deserialize<object>(cachedJson!);
+
+                context.Result = new OkObjectResult(cachedObject);
                 return;
             }
+
+            // cache miss -> execute action
             var executedContext = await next();
+
             if (executedContext.Result is OkObjectResult okResult)
             {
-                await cacheService.SetAsync(cacheKey, okResult.Value!, TimeSpan.FromMinutes(_expirationMinutes));
+                await cacheService.SetAsync(
+                    cacheKey,
+                    okResult.Value!,
+                    TimeSpan.FromMinutes(_expirationMinutes));
             }
         }
+
         private string GenerateCacheKey(ActionExecutingContext context)
         {
             var request = context.HttpContext.Request;

@@ -1,17 +1,15 @@
 ﻿using E_Commerce.Service.Abstraction.Interfaces;
+using E_Commerce.Shared.Common;
 using E_Commerce.Shared.DTOs.BasketDTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace E_Commerce.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BasketController : ControllerBase
+    public class BasketController : ApiBaseController
     {
         private readonly IBasketService _basketService;
 
@@ -21,38 +19,27 @@ namespace E_Commerce.Presentation.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<BasketDTO>> GetBasketById([FromRoute] Guid id)
+        public async Task<IActionResult> GetBasketById([FromRoute] Guid id)
         {
-            var basket = await _basketService.GetBasketAsync(id);
-            if (basket == null)
-            {
-                return NotFound();
-            }
-            return Ok(basket);
+            var result = await _basketService.GetBasketAsync(id);
+            return FromResult(result);   // maps NotFound, etc.
         }
 
         [HttpPost]
-        public async Task<ActionResult<BasketDTO>> CreateOrUpdateBasket([FromBody] BasketDTO basket)
+        public async Task<IActionResult> CreateOrUpdateBasket([FromBody] BasketDTO basket)
         {
-            if (ModelState.IsValid)
-            {
-                var updatedBasket = await _basketService.CreateOrUpdateBasketAsync(basket);
-                return Ok(updatedBasket);
-            }
-            else
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid)
+                return ValidationProblem(ModelState);   // framework 400 with details
+
+            var result = await _basketService.CreateOrUpdateBasketAsync(basket);
+            return FromResult(result);                 // 200 or error ProblemDetails
         }
+
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult> DeleteBasket([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteBasket([FromRoute] Guid id)
         {
             var result = await _basketService.DeleteBasketAsync(id);
-            if (!result)
-            {
-                return NotFound();
-            }
-            return NoContent();
+            return FromResult(result);                 // 204 on success, error otherwise
         }
     }
 }
