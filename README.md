@@ -34,6 +34,6 @@ JWT Authentication for secure access
 
 Stripe Integration for card payments
 
-Fully tested with an Angular front-end
+Fully tested with an Angular front-end (There is a video for the end points and angular project)
 
 This project demonstrates a professional approach to building scalable, maintainable, and secure backend systems with modern .NET practices.
